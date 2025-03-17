@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: main-api
+
+server:
+  port: 8020
+
+# spring docs
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    path: /api.html
+    url: /api-docs

@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      path-mapping:
+        health: "heartbeat"
+        info: "info"
+        prometheus: "prometheus"
+      exposure:
+        include: "health, info, prometheus"
+      access:
+        default: unrestricted
+    info:
+      build:
+        enabled: true
+    endpoint:
+      health:
+        access: unrestricted
+      info:
+        access: unrestricted
+      metrics:
+        access: unrestricted
+      prometheus:
+        access: unrestricted

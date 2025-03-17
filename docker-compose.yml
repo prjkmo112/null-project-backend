@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0.31
+    container_name: mysql-null-prj
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PW}
+      - MYSQL_DATABASE=nullprj
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=2000 --information_schema_stats_expiry=0
+    volumes:
+      - ./docker/mysql/scripts:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "3338:3306"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:22
+    container_name: clickhouse-null-prj
+    # noinspection ComposeUnknownValues
+    platform: linux/x86_64
+    depends_on:
+      - mysql
+    volumes:
+      - ./scripts/clickhouse:/docker-entrypoint-initdb.d
+    ports:
+      - "8325:8123"
+      - "9302:9000"
+
+volumes:
+  cache:
+    driver: local
